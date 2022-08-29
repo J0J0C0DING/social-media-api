@@ -8,6 +8,20 @@ const ReactionSchema = new Schema({
     type: Schema.Types.ObjectId,
     default: () => new Types.ObjectId(),
   },
+  reactionBody: {
+    type: String,
+    required: true,
+    maxLength: 280,
+  },
+  username: {
+    type: String,
+    required: true,
+  },
+  createdAt: {
+    type: Date,
+    default: now,
+    get: createdAtVal => createdAtVal.toLocaleString(DateTime.DATETIME_MED_WITH_WEEKDAY),
+  },
 });
 
 const ThoughtSchema = new Schema(
