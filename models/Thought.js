@@ -3,26 +3,33 @@ const { Schema, model, Types } = require('mongoose');
 const { DateTime } = require('luxon');
 const now = DateTime.now();
 
-const ReactionSchema = new Schema({
-  reactionId: {
-    type: Schema.Types.ObjectId,
-    default: () => new Types.ObjectId(),
+const ReactionSchema = new Schema(
+  {
+    reactionId: {
+      type: Schema.Types.ObjectId,
+      default: () => new Types.ObjectId(),
+    },
+    reactionBody: {
+      type: String,
+      required: true,
+      maxLength: 280,
+    },
+    username: {
+      type: String,
+      required: true,
+    },
+    createdAt: {
+      type: Date,
+      default: now,
+      get: createdAtVal => createdAtVal.toLocaleString(DateTime.DATETIME_MED_WITH_WEEKDAY),
+    },
   },
-  reactionBody: {
-    type: String,
-    required: true,
-    maxLength: 280,
-  },
-  username: {
-    type: String,
-    required: true,
-  },
-  createdAt: {
-    type: Date,
-    default: now,
-    get: createdAtVal => createdAtVal.toLocaleString(DateTime.DATETIME_MED_WITH_WEEKDAY),
-  },
-});
+  {
+    toJSON: {
+      getters: true,
+    },
+  }
+);
 
 const ThoughtSchema = new Schema(
   {
