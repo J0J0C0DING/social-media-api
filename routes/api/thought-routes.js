@@ -1,14 +1,13 @@
 const router = require('express').Router();
 
-const { Router } = require('express');
 const {
   getAllThoughts,
   getThoughtById,
   createThought,
   updateThought,
   deleteThought,
-  addFriend,
-  removeFriend,
+  postRection,
+  removeReaction,
 } = require('../../controllers/thought-controller');
 
 // Set up GET all and POST at /api/users
@@ -26,10 +25,15 @@ router
   .put(updateThought)
   .delete(deleteThought);
 
+// Set up POST and DELETE Routes for reactions
 // prettier-ignore
 router
-.route('/:userId/friends/:friendId')
-.post(addFriend)
-.delete(removeFriend)
+  .route('/:thoughtId/reactions')
+  .post(postRection)
+
+// prettier-ignore
+router
+  .route('/:thoughtId/reactions/:reactionId')
+  .delete(removeReaction)
 
 module.exports = router;

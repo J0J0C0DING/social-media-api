@@ -76,11 +76,11 @@ const thoughtController = {
       .catch(err => res.status(400).json(err));
   },
 
-  // Add friend to thought, takes thoughtId first and pushes friend by their thoughtId (named friendId in params)
-  addFriend({ params }, res) {
+  // Add reaction to thought
+  postRection({ params, body }, res) {
     Thought.findOneAndUpdate(
       { _id: params.thoughtId },
-      { $push: { friends: params.friendId } },
+      { $push: { reactions: body } },
       { new: true, runValidators: true }
     )
       .then(dbThoughtData => {
@@ -90,13 +90,14 @@ const thoughtController = {
         }
         res.json(dbThoughtData);
       })
-      .catch(err => res.status(400).json(err));
+      .catch(err => res.json(err));
   },
 
-  removeFriend({ params }, res) {
+  // remove reaction from thought
+  removeReaction({ params }, res) {
     Thought.findOneAndUpdate(
       { _id: params.thoughtId },
-      { $pull: { friends: params.friendId } },
+      { $pull: { reactions: { reactionId: params.reactionId } } },
       { new: true }
     )
       .then(dbThoughtData => {
@@ -106,7 +107,7 @@ const thoughtController = {
         }
         res.json(dbThoughtData);
       })
-      .catch(err => res.status(400).json(err));
+      .catch(err => res.json(err));
   },
 };
 
