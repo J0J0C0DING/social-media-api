@@ -1,7 +1,5 @@
+const formatDate = require('../utils/dateFormat');
 const { Schema, model, Types } = require('mongoose');
-
-const { DateTime } = require('luxon');
-const now = DateTime.now();
 
 const ReactionSchema = new Schema(
   {
@@ -20,8 +18,8 @@ const ReactionSchema = new Schema(
     },
     createdAt: {
       type: Date,
-      default: now,
-      get: createdAtVal => createdAtVal.toLocaleString(DateTime.DATETIME_MED_WITH_WEEKDAY),
+      default: new Date(),
+      get: createdAtVal => formatDate(createdAtVal),
     },
   },
   {
@@ -42,8 +40,8 @@ const ThoughtSchema = new Schema(
     },
     createdAt: {
       type: Date,
-      default: now,
-      get: createdAtVal => createdAtVal.toLocaleString(DateTime.DATETIME_MED_WITH_WEEKDAY),
+      default: new Date(),
+      get: createdAtVal => formatDate(createdAtVal),
     },
     username: {
       type: String,
