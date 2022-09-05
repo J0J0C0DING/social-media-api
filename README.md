@@ -4,6 +4,10 @@
 
 An API for a mock social network that uses NoSQL
 
+## Walkthrough Video
+
+[Walkthrough Video](https://vimeo.com/746624363/5ac2ac0fcc)
+
 ## Table of Contents
 
 - [Installation](#installation)
